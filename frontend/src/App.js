@@ -7,6 +7,7 @@ import {Container} from 'react-bootstrap'
 
 import ProductDetailRoute from './routes/Product'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import CartRoute from "./routes/Cart";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Container>
                 <Route path='/' component={HomeRoute} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
+                <Route path='/cart/:id?' component={CartRoute} exact />
                 </Container>
 
             </main>
