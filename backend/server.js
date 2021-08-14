@@ -4,7 +4,7 @@ import connectDB from "./config/db.js";
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
-import user from "./data/users";
+import user from "./data/users.js";
 
 dotenv.config();
 
