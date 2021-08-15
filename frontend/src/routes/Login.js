@@ -7,7 +7,6 @@ import {login} from "../actions/userAction";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-
 const Login = ({location, history}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -21,13 +20,12 @@ const Login = ({location, history}) => {
 
     useEffect(() => {
         if (userInfo){
-            history.push('redirect')
+            history.push(redirect)
         }
-    }, [history, userInfo]);
+    }, [history, userInfo, redirect]);
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log(e)
         dispatch(login(email, password))
     }
     return (
