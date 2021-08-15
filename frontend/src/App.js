@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import CartRoute from "./routes/Cart";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
+import Profile from "./routes/Profile";
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                 <Route path='/' component={HomeRoute} exact />
                 <Route path='/login' component={Login} exact />
                 <Route path='/register' component={Register} exact />
+                <Route path='/profile' component={Profile} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
                 <Route path='/cart/:id?' component={CartRoute} exact />
                 </Container>
