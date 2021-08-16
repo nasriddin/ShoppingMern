@@ -13,6 +13,7 @@ import Profile from "./routes/Profile";
 import Shipping from "./routes/Shipping";
 import Payment from "./routes/Payment";
 import PlaceOrder from "./routes/PlaceOrder";
+import Order from "./routes/Order";
 
 const App = () => {
     return (
@@ -25,6 +26,7 @@ const App = () => {
                 <Route path='/shipping' component={Shipping} exact />
                 <Route path='/payment' component={Payment} exact />
                 <Route path='/placeorder' component={PlaceOrder} exact />
+                <Route path='/order/:id' component={Order} exact />
                 <Route path='/register' component={Register} exact />
                 <Route path='/profile' component={Profile} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
