@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button, Form} from 'react-bootstrap'
 import Rating from '../components/Rating'
-import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {productDetailReducer} from "../reducers/productReducers";
 import {detailProducts} from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";

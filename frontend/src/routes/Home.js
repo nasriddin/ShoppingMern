@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Alert, Col, Container, Row} from "react-bootstrap";
+import React, {useEffect} from "react";
+import {Col, Container, Row} from "react-bootstrap";
 import Product from "../components/Product";
 import {useDispatch, useSelector} from "react-redux";
 import {listProducts} from "../actions/productActions";

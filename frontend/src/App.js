@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -12,6 +11,8 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import Profile from "./routes/Profile";
 import Shipping from "./routes/Shipping";
+import Payment from "./routes/Payment";
+import PlaceOrder from "./routes/PlaceOrder";
 
 const App = () => {
     return (
@@ -22,6 +23,8 @@ const App = () => {
                 <Route path='/' component={HomeRoute} exact />
                 <Route path='/login' component={Login} exact />
                 <Route path='/shipping' component={Shipping} exact />
+                <Route path='/payment' component={Payment} exact />
+                <Route path='/placeorder' component={PlaceOrder} exact />
                 <Route path='/register' component={Register} exact />
                 <Route path='/profile' component={Profile} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
