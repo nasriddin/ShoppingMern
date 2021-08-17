@@ -101,4 +101,50 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
     }
 })
 
+export const getUsers = expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
+})
+
+export const deleteUser = expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user){
+        user.remove()
+        res.json({message: 'User successfully deleted!'})
+    }else{
+        res.status(404)
+        throw new Error('User not found')
+    }
+    res.json(users)
+})
+
+export const getUserById = expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+    if (user){
+        res.json(user)
+    }else{
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+export const updateUser = expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.isAdmin = req.body.isAdmin
+        const updatedUser = await user.save()
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin
+        })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
 

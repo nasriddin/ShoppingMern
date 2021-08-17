@@ -17,7 +17,7 @@ const Order = ({match}) => {
         if(!order || order._id !== orderId) {
             dispatch(getOrderDetails(orderId))
         }
-    }, [order, orderId]);
+    }, [order, orderId, dispatch]);
     if (!loading){
         const addDecimals = (num) => {
             return (Math.round(num * 100) / 100).toFixed(2)

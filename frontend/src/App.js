@@ -14,6 +14,8 @@ import Shipping from "./routes/Shipping";
 import Payment from "./routes/Payment";
 import PlaceOrder from "./routes/PlaceOrder";
 import Order from "./routes/Order";
+import UserList from "./routes/UserList";
+import UserEdit from "./routes/UserEdit";
 
 const App = () => {
     return (
@@ -29,6 +31,8 @@ const App = () => {
                 <Route path='/order/:id' component={Order} exact />
                 <Route path='/register' component={Register} exact />
                 <Route path='/profile' component={Profile} exact />
+                <Route path='/admin/users-list' component={UserList} exact />
+                <Route path='/admin/user/:id/edit' component={UserEdit} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
                 <Route path='/cart/:id?' component={CartRoute} exact />
                 </Container>
