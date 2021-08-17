@@ -14,9 +14,10 @@ const Order = ({match}) => {
 
 
     useEffect(() => {
-        dispatch(getOrderDetails(orderId))
-        // eslint-disable-next-line
-    }, []);
+        if(!order || order._id !== orderId) {
+            dispatch(getOrderDetails(orderId))
+        }
+    }, [order, orderId]);
     if (!loading){
         const addDecimals = (num) => {
             return (Math.round(num * 100) / 100).toFixed(2)
