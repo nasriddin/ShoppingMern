@@ -16,6 +16,7 @@ import PlaceOrder from "./routes/PlaceOrder";
 import Order from "./routes/Order";
 import UserList from "./routes/UserList";
 import UserEdit from "./routes/UserEdit";
+import ProductList from "./routes/ProductList";
 
 const App = () => {
     return (
@@ -32,6 +33,7 @@ const App = () => {
                 <Route path='/register' component={Register} exact />
                 <Route path='/profile' component={Profile} exact />
                 <Route path='/admin/users-list' component={UserList} exact />
+                <Route path='/admin/products-list' component={ProductList} exact />
                 <Route path='/admin/user/:id/edit' component={UserEdit} exact />
                 <Route path='/product/:id' component={ProductDetailRoute} exact />
                 <Route path='/cart/:id?' component={CartRoute} exact />
