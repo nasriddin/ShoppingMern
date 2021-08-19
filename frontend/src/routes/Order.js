@@ -1,24 +1,37 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Card, Col, Image, ListGroup, Row} from "react-bootstrap";
+import {Button, Card, Col, Image, ListGroup, Row} from "react-bootstrap";
 import Message from "../components/Message";
 import {Link} from "react-router-dom";
-import { getOrderDetails} from "../actions/orderActions";
+import {deliverOrder, getOrderDetails} from "../actions/orderActions";
 import Loader from "../components/Loader";
+import {ORDER_DELIVER_RESET} from "../constants/orderConstants";
 
-const Order = ({match}) => {
+const Order = ({match, history}) => {
     const orderId = match.params.id
     const dispatch = useDispatch()
     const orderDetails = useSelector(state => state.orderDetails)
     const {order, loading, error} = orderDetails
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const {loading: loadingDeliver, success: successDeliver} = orderDeliver
+
 
     useEffect(() => {
-        if(!order || order._id !== orderId) {
+        if (!userInfo){
+            history.push('/login')
+        }
+        if (!order || order._id !== orderId || successDeliver) {
+            dispatch({type: ORDER_DELIVER_RESET})
             dispatch(getOrderDetails(orderId))
         }
-    }, [order, orderId, dispatch]);
-    if (!loading){
+    }, [order, orderId, dispatch, successDeliver, userInfo]);
+
+
+    if (!loading) {
         const addDecimals = (num) => {
             return (Math.round(num * 100) / 100).toFixed(2)
         }
@@ -28,10 +41,12 @@ const Order = ({match}) => {
         )
     }
 
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
+    }
 
 
-
-    return loading ? <Loader /> : error ? <Message variant={'danger'}>{error}</Message> :
+    return loading ? <Loader/> : error ? <Message variant={'danger'}>{error}</Message> :
         <>
             <h1>Order {order._id}</h1>
             <Row>
@@ -51,7 +66,8 @@ const Order = ({match}) => {
                                 <strong>Address:</strong>
                                 {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
                                 {order.shippingAddress.postalCode},{' '}{order.shippingAddress.country}
-                                {order.isDelivered ? <Message variant={'success'}>Delivered on {order.deliveredAt}</Message>:
+                                {order.isDelivered ?
+                                    <Message variant={'success'}>Delivered on {order.deliveredAt}</Message> :
                                     <Message variant={'danger'}>Not delivered</Message>
                                 }
                             </p>
@@ -63,8 +79,8 @@ const Order = ({match}) => {
                                 <strong>Method: </strong>
                                 {order.paymentMethod}
                             </p>
-                            {order.isPaid ? <Message variant={'success'}>Paid on {order.paidAt}</Message>:
-                            <Message variant={'danger'}>Not paid</Message>
+                            {order.isPaid ? <Message variant={'success'}>Paid on {order.paidAt}</Message> :
+                                <Message variant={'danger'}>Not paid</Message>
                             }
 
                         </ListGroup.Item>
@@ -131,6 +147,16 @@ const Order = ({match}) => {
                                     <Col>${order.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
+                            {loadingDeliver && <Loader/>}
+                            {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                                <ListGroup.Item>
+                                    <Button type={'button'} className={'btn btn-block'} onClick={deliverHandler}>
+                                        Mark as Delivered
+                                    </Button>
+
+                                </ListGroup.Item>
+                            )}
+
 
                         </ListGroup>
                     </Card>

@@ -37,9 +37,9 @@ const ProductEdit = ({match, history}) => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({type: PRODUCT_UPDATE_RESET})
-            history.push('/admin/productlist')
+            history.push('/admin/products-list')
         } else {
-            if (!product.name || product._id !== productId) {
+            if (!product.name && product._id !== productId) {
                 dispatch(detailProducts(productId))
             } else {
                 setName(product.name)
@@ -94,7 +94,7 @@ const ProductEdit = ({match, history}) => {
 
     return (
         <>
-            <Link to='/admin/productlist' className='btn btn-light my-3'>
+            <Link to='/admin/products-list' className='btn btn-light my-3'>
                 Go Back
             </Link>
             <FormContainer>
