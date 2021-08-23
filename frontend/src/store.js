@@ -5,7 +5,7 @@ import {
     productCreateReducer,
     productDeleteReducer,
     productDetailReducer,
-    productListReducer, productReviewCreateReducer, productUpdateReducer
+    productListReducer, productReviewCreateReducer, productTopRatedReducer, productUpdateReducer
 } from "./reducers/productReducers";
 import {cartReducer} from "./reducers/cartReducers";
 import {
@@ -45,6 +45,7 @@ const reducer = combineReducers({
     orderList: orderListReducer,
     orderDeliver: orderDeliverReducer,
     productReviewCreate: productReviewCreateReducer,
+    productTopRated: productTopRatedReducer,
 })
 
 const cartItemsFormStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []

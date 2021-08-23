@@ -7,6 +7,7 @@ import {createProductReview, detailProducts} from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import {PRODUCT_CREATE_REVIEW_RESET} from "../constants/productConstants";
+import Meta from "../components/Meta";
 
 const Product = ({history, match}) => {
     const [quantity, setQuantity] = useState(1)
@@ -54,11 +55,14 @@ const Product = ({history, match}) => {
     }
     return (
         <>
+
             <Link className='btn btn-light my-3' to='/'>
                 Go Back
             </Link>
             {loading ? (<Loader/>) : error ? (<Message variant={'danger'}>{error}</Message>) : (
                 <>
+                    <Meta title={product.name}/>
+
                     <Row>
                         <Col md={6}>
                             <Image src={product.image} alt={product.name} fluid/>

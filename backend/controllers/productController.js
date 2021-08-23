@@ -2,8 +2,18 @@ import expressAsyncHandler from "express-async-handler";
 import Product from "../models/productModel.js";
 
 export const getProduct = expressAsyncHandler(async (req, res) => {
-    const products = await Product.find({})
-    res.json(products)
+    const pageSize = 10
+    const page = Number(req.query.pageNumber) || 1
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    } : {}
+
+    const count = await Product.countDocuments({...keyword})
+    const products = await Product.find({...keyword}).limit(pageSize).skip(pageSize * (page - 1))
+    res.json({products, page, pages: Math.ceil(count / pageSize)})
 })
 export const getProductById = expressAsyncHandler(async (req, res) => {
         const product = await Product.findById(req.params.id);
@@ -71,7 +81,7 @@ export const createReviewProduct = expressAsyncHandler(async (req, res) => {
         const product = await Product.findById(req.params.id)
         if (product) {
             const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString())
-            if (alreadyReviewed){
+            if (alreadyReviewed) {
                 res.status(400)
                 throw new Error('Product already reviewed')
             }
@@ -95,6 +105,14 @@ export const createReviewProduct = expressAsyncHandler(async (req, res) => {
             throw new Error('Product not found')
         }
 
+
+    }
+)
+
+export const getTopProducts = expressAsyncHandler(async (req, res) => {
+        const products = await Product.find({}).sort({rating: -1}).limit(3)
+
+        res.json(products)
 
     }
 )
