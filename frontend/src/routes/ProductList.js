@@ -26,8 +26,6 @@ const ProductList = ({history, match}) => {
     const {userInfo} = userLogin
 
 
-
-
     useEffect(() => {
         dispatch({type: PRODUCT_CREATE_RESET})
         if (!userInfo.isAdmin){
